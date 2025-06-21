@@ -46,12 +46,20 @@ const CompanySetup = () => {
         }
         try {
             setLoading(true);
-            const res = await axios.put(`${COMPANY_API_END_POINT}/update/${params.id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                withCredentials: true
-            });
+            const token = localStorage.getItem("token");
+
+            const res = await axios.put(
+                `${COMPANY_API_END_POINT}/update/${params.id}`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`  // ✅ Add Bearer token here
+                    },
+                    withCredentials: true
+                }
+            );
+
             if (res.data.success) {
                 toast.success(res.data.message);
                 navigate("/admin/companies");

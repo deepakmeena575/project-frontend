@@ -40,6 +40,7 @@ const Login = () => {
                 dispatch(setUser(res.data.user));
                 navigate("/");
                 toast.success(res.data.message);
+                localStorage.setItem("token",res.data.token)
             }
         } catch (error) {
             console.log(error);
