@@ -45,11 +45,18 @@ const Profile = () => {
     if (profilePhoto) formData.append('profilePhoto', profilePhoto);
 
     try {
+      const token = localStorage.getItem("token");
+
       const res = await fetch('/api/user/profile/update', {
         method: 'POST',
         body: formData,
         credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${token}`  // ✅ Add Bearer token here
+          // Note: Do NOT set 'Content-Type' for multipart/form-data when using FormData. The browser will handle it automatically.
+        }
       });
+
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
       setMessage('Profile updated successfully!');
