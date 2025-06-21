@@ -15,7 +15,16 @@ const Applicants = () => {
     useEffect(() => {
         const fetchAllApplicants = async () => {
             try {
-                const res = await axios.get(`${APPLICATION_API_END_POINT}/getallapplications`, { withCredentials: true });
+                const token = localStorage.getItem("token");
+                const res = await axios.get(
+                    `${APPLICATION_API_END_POINT}/getallapplications`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`  // ✅ Add Bearer token here
+                        },
+                        withCredentials: true
+                    }
+                );
                 dispatch(setAllApplicantsForRecruiter(res.data.applications));
             } catch (error) {
                 console.log(error);

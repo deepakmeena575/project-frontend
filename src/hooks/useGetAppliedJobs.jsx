@@ -10,7 +10,17 @@ const useGetAppliedJobs = () => {
     useEffect(()=>{
         const fetchAppliedJobs = async () => {
             try {
-                const res = await axios.get(`${APPLICATION_API_END_POINT}/get`, {withCredentials:true});
+                const token = localStorage.getItem("token");
+
+                const res = await axios.get(
+                    `${APPLICATION_API_END_POINT}/get`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`  // ✅ Add Bearer token here
+                        },
+                        withCredentials: true
+                    }
+                );
                 console.log(res.data);
                 if(res.data.success){
                     dispatch(setAllAppliedJobs(res.data.application));

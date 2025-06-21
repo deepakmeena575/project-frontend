@@ -55,15 +55,23 @@ const PostJob = () => {
 
         try {
             setLoading(true);
-            const res = await axios.post(`${JOB_API_END_POINT}/post`, {
-                ...input,
-                salary: parsedSalary 
-            },{
-                headers:{
-                    'Content-Type':'application/json'
+            const token = localStorage.getItem("token");
+
+            const res = await axios.post(
+                `${JOB_API_END_POINT}/post`,
+                {
+                    ...input,
+                    salary: parsedSalary
                 },
-                withCredentials:true
-            });
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`  // ✅ Add Bearer token here
+                    },
+                    withCredentials: true
+                }
+            );
+
             if(res.data.success){
                 toast.success(res.data.message);
                 navigate("/admin/jobs");

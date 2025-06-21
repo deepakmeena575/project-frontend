@@ -15,7 +15,17 @@ const ApplicantsTable = ({ applications }) => {
     const statusHandler = async (status, id) => {
         try {
             axios.defaults.withCredentials = true;
-            const res = await axios.post(`${APPLICATION_API_END_POINT}/status/${id}/update`, { status });
+            const token = localStorage.getItem("token");
+
+            const res = await axios.post(
+                `${APPLICATION_API_END_POINT}/status/${id}/update`,
+                { status },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`  // ✅ Add Bearer token here
+                    }
+                }
+            );
             if (res.data.success) {
                 toast.success(res.data.message);
                 
