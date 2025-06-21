@@ -53,38 +53,50 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    <div className='border-t border-indigo-100 pt-6 mt-6'>
-                        <h2 className='font-semibold text-xl text-indigo-600 mb-4'>Skills</h2>
-                        <div className='flex flex-wrap items-center gap-2'>
-                            {
-                                user?.profile?.skills && user?.profile?.skills.length > 0 ? 
-                                user.profile.skills.map((item, index) => <Badge key={index} className="bg-sky-100 text-sky-700 px-3 py-1 rounded-full font-medium shadow-sm hover:bg-sky-200 transition">{item}</Badge>) : 
-                                <span className="text-slate-500">No skills added yet.</span>
-                            }
-                        </div>
-                    </div>
+                    {
+                        user && user.role === 'student' && (
+                            <div className='border-t border-indigo-100 pt-6 mt-6'>
+                                <h2 className='font-semibold text-xl text-indigo-600 mb-4'>Skills</h2>
+                                <div className='flex flex-wrap items-center gap-2'>
+                                    {
+                                        user?.profile?.skills && user?.profile?.skills.length > 0 ? 
+                                        user.profile.skills.map((item, index) => <Badge key={index} className="bg-sky-100 text-sky-700 px-3 py-1 rounded-full font-medium shadow-sm hover:bg-sky-200 transition">{item}</Badge>) : 
+                                        <span className="text-slate-500">No skills added yet.</span>
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
 
-                    <div className='border-t border-indigo-100 pt-6 mt-6'>
-                        <h2 className="text-xl font-semibold text-indigo-600 mb-4">Resume</h2>
-                        <div className='grid w-full max-w-sm items-center gap-1.5'>
-                            {
-                                user?.profile?.resume ? 
-                                (<a target='_blank' href={user.profile.resume} rel="noopener noreferrer" className='text-indigo-600 font-semibold hover:underline cursor-pointer flex items-center gap-2'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-9 6h6m-3 6a2.25 2.25 0 0 1-2.25-2.25V9.75a2.25 2.25 0 0 1 2.25-2.25h.75m-3 4.5H9a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 1 2.25-2.25h.75m-3 4.5H15M9 12H7.5a2.25 2.25 0 0 0-2.25 2.25V17.25m2.25-4.5H15M12 18.75V21M17.25 12V21" />
-                                    </svg>
-                                    View Resume
-                                </a>) : 
-                                <span className="text-slate-500">No resume uploaded yet.</span>
-                            }
-                        </div>
-                    </div>
+                    {
+                        user && user.role === 'student' && (
+                            <div className='border-t border-indigo-100 pt-6 mt-6'>
+                                <h2 className="text-xl font-semibold text-indigo-600 mb-4">Resume</h2>
+                                <div className='grid w-full max-w-sm items-center gap-1.5'>
+                                    {
+                                        user?.profile?.resume ? 
+                                        (<a target='_blank' href={user.profile.resume} rel="noopener noreferrer" className='text-indigo-600 font-semibold hover:underline cursor-pointer flex items-center gap-2'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-9 6h6m-3 6a2.25 2.25 0 0 1-2.25-2.25V9.75a2.25 2.25 0 0 1 2.25-2.25h.75m-3 4.5H9a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 1 2.25-2.25h.75m-3 4.5H15M9 12H7.5a2.25 2.25 0 0 0-2.25 2.25V17.25m2.25-4.5H15M12 18.75V21M17.25 12V21" />
+                                            </svg>
+                                            View Resume
+                                        </a>) : 
+                                        <span className="text-slate-500">No resume uploaded yet.</span>
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
                 </div>
 
-                <div className='bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-indigo-100 p-10'>
-                    <h1 className='font-extrabold text-2xl text-indigo-700 mb-6'>Applied Jobs</h1>
-                    <AppliedJobTable />
-                </div>
+                {
+                    user && user.role === 'student' && (
+                        <div className='bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-indigo-100 p-10'>
+                            <h1 className='font-extrabold text-2xl text-indigo-700 mb-6'>Applied Jobs</h1>
+                            <AppliedJobTable />
+                        </div>
+                    )
+                }
             </div>
             <UpdateProfileDialog open={open} setOpen={setOpen}/>
         </div>
